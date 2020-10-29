@@ -143,7 +143,6 @@ class HttpInvoke extends Invoke {
 
   async doInvoke(req, res) {
     // only one invoke can be processed
-    await lock.acquire('invoke', async () => {
       debug('http doInvoke, aquire invoke lock success, processing...');
 
       const outputStream = new streams.WritableStream();
@@ -230,7 +229,6 @@ class HttpInvoke extends Invoke {
       }
 
       this.response(outputStream, errorStream, res);
-    });
   }
 
   async afterInvoke() {
